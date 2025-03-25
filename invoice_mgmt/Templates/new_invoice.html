@@ -1,0 +1,21 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <title>{{title}}</title>
+</head>
+<body>
+    <form method="post" action="">
+        <div class="row">
+            <div class="col-sm-6">
+                {% csrf_token %} {{form | crispy}}
+                <input type="submit" value="Save" />
+            </div>
+        </div>
+    </form>
+</body>
+</html>

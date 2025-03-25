@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Invoices</title>
+</head>
+<body>
+    {{title}}
+    <br>
+    <br>
+    {% for instance in queryset %}
+    {{instance.invoice_date}},
+    {{instance.name}},
+    {{instance.invoice_number}},
+    {{instance.invoice_type}},
+    {{instance.Line_one_total_price}}
+    <br>
+    ----------------------------------------------<br>
+
+    {% endfor %}
+
+</body>
+</html>
