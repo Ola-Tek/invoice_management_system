@@ -10,3 +10,20 @@ body {
 .myForm{
     margin: 30px;
 }
+
+.table{
+    font-size: 13px;
+    text-align: center;
+    width: 95%;
+    margin: auto;
+    text-align: center;
+}
+
+/*making alternate colors for the table row*/
+.table tr:nth-child(odd){
+    background: #88CAE4;
+}
+
+.table tr:nth-child(even){
+    background-color: #dae5f4;
+}

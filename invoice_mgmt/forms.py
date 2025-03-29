@@ -18,4 +18,8 @@ class InvoiceForm(forms.ModelForm):
             'line_nine', 'line_nine_quantity', 'line_nine_unit_price', 'line_nine_total_price',
             'total', 'paid', 'invoice_type'
         ]
- 
+class InvoiceSearchForm(forms.ModelForm):
+    """a class that describes the search feature and to display it"""
+    class Meta:
+        model = Invoice
+        fields = {'invoice_number', 'name'}

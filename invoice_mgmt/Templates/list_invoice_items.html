@@ -1,25 +1,41 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+</head>
 <!DOCTYPE html>
+{% include 'navbar.html' %}
 <html lang="en">
 <head>
-    {% include 'navbar.html' %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Invoices</title>
 </head>
 <body>
     {{title}}
+    {{form}}
     <br>
     <br>
-    {% for instance in queryset %}
-    {{instance.invoice_date}},
-    {{instance.name}},
-    {{instance.invoice_number}},
-    {{instance.invoice_type}},
-    {{instance.line_one_total_price}}
-    <br>
-    ----------------------------------------------<br>
-
-    {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>DATE</th>
+                <th>CUSTOMER NAME</th>
+                <th>INVOICE NUMBER</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        {% for instance in queryset %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.invoice_date}}</td>
+            <td>{{instance.name}}</td>
+            <td>{{instance.invoice_number}}</td>
+            <td>{{instance.total}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 </body>
 </html>
