@@ -1,4 +1,5 @@
 {% load static %}
+{% load_crispy_form_tags %}
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
@@ -13,7 +14,11 @@
 </head>
 <body>
     {{title}}
-    {{form}}
+    <div class="myForm">
+        <form action="" method="post">{% csrf_token %} {{form | crispy}}
+            <input type="submit" value="Search">
+        </form>
+    </div>
     <br>
     <br>
     <table class="table">
@@ -24,15 +29,17 @@
                 <th>CUSTOMER NAME</th>
                 <th>INVOICE NUMBER</th>
                 <th>TOTAL</th>
+                <th>DELETE</th>
             </tr>
         </thead>
         {% for instance in queryset %}
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{instance.invoice_date}}</td>
-            <td>{{instance.name}}</td>
+            <td><a href="{% url 'update_invoice' instance.id %}">{{instance.name}}</a></td>
             <td>{{instance.invoice_number}}</td>
             <td>{{instance.total}}</td>
+            <td><a href="{% url 'delete_invoice' instance.id %}">Delete</a></td>
         </tr>
         {% endfor %}
     </table>
