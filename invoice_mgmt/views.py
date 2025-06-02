@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import InvoiceForm, InvoiceSearchForm, InvoiceUpdateForm
 from .models import Invoice
+from django.contrib import messages
 
 # Create your views here.
 def home_page(request):
@@ -14,12 +15,18 @@ def home_page(request):
 def add_invoice(request):
     """This is a view function that adds a new invoice and displays the contents"""
     form = InvoiceForm(request.POST or None)
+    total_invoices = Invoice.objects.count()
+    queryset = Invoice.objects.order_by('-invoice_date-')[:6]
+    
     if form.is_valid():
         form.save()
-        return redirect ('/add_invoice')
+        messages.success(request, 'Invoice saved successfully')
+        return redirect ('/list_invoice')
     context = {
         "form" : form,
-        "Title" : "NEW INVOICE"
+        "Title" : "NEW INVOICE",
+        "total_invoices" : total_invoices,
+        "queryset" : queryset,
     }
     return render(request, "new_invoice.html", context)
 

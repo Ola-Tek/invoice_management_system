@@ -5,68 +5,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="{% Static 'css/stylesheet.css' %}">
     <title>{{title}}</title>
 </head>
 <body>
-    <div class="myForm"></div>
-        <form method="post" action=""> {% csrf_token %}
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            {{ form.invoice_date | as_crispy_field }}
-                            {{ form.name | as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.invoice_number | as_crispy_field }}
-                            {{ form.phone_number | as_crispy_field}}
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            {{ form.line_one | as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ form.line_one_quantity | as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ form.line_one_unit_price | as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ form.line_one_total_price | as_crispy_field }}
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="myForm"></div>
+                <form method="post" action=""> {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ form.invoice_date | as_crispy_field }}
+                                    {{ form.name | as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.invoice_number | as_crispy_field }}
+                                    {{ form.phone_number | as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ form.line_one | as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    {{ form.line_one_quantity | as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    {{ form.line_one_unit_price | as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    {{ form.line_one_total_price | as_crispy_field }}
+                                </div>
+                            </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            {{ form.line_two | as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ form.line_two_quantity | as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ form.line_two_unit_price | as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{ form.line_two_total_price | as_crispy_field }}
-                        </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ form.line_two | as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    {{ form.line_two_quantity | as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    {{ form.line_two_unit_price | as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    {{ form.line_two_total_price | as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    {{ form.invoice_type | as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-12">
+                                    {{ form.total | as_crispy_field }}
+                                </div>
+                            </div>
+                            <!--{% csrf_token %} {{form | crispy}}-->
+                            <!--input type="submit" cvalue="Save" /-->
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>   
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            {{ form.invoice_type | as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-12">
-                            {{ form.total | as_crispy_field }}
-                        </div>
-                    </div>
-                    <!--{% csrf_token %} {{form | crispy}}-->
-                    <!--input type="submit" cvalue="Save" /-->
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>   
+                </form>
             </div>
-        </form>
+        </div>
+        <div class="col-sm-3">
+            <div class="recent">
+                <span class="">
+                    Recent Invoices
+                </span>
+                <span class="">
+                    {{ total_invoices }}
+                </span>
+                <br><br>
+                {% for instance in queryset %}
+                    <div>
+                        <div class="">{{ instance.name }}</div>
+                        <div class="">{{ instance.invoice_date }}</div>
+                    </div>
+                    <div class="">${{ instance.total }}</div><br>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 
 </body>

@@ -1,19 +1,34 @@
 {% load static %}
 {% load_crispy_form_tags %}
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
-</head>
-<!DOCTYPE html>
 {% include 'navbar.html' %}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% Static 'css/stylesheet.css' %}">
+
+    <link rel="stylesheet" href="{% Static 'jss/jquery-ui-1.14.1/jquery-ui-1.14.1/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% Static 'jss/jquery-ui-1.14.1/jquery-ui-1.14.1/jquery-ui.structure.min.css' %}">
+    <link rel="stylesheet" href="{% Static 'jss/jquery-ui-1.14.1/jquery-ui-1.14.1/jquery-ui.theme.min.css' %}">
+
+    <script src="{% Static 'jss/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% Static 'jss/jquery-ui-1.14.1/jquery-ui-1.14.1/jquery-ui.js' %}"></script>
+    <script src="{% Static 'jss/myjs.js %'}"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Invoices</title>
 </head>
 <body>
-    {{title}}
+    {{title}}<br>
+    {% if messages %}
+        <ul class="messages">
+            { % for message in messages % }
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            { % endfor %}
+        </ul>
+    {% endif %}
     <div class="myForm">
         <form action="" method="post">{% csrf_token %} {{form | crispy}}
             <input type="submit" value="Search">
